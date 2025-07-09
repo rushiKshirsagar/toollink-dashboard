@@ -1,0 +1,155 @@
+/* DateFilter Styles - Minimalist Professional */
+.date-filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.date-filter-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4a5568;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-icon {
+  font-size: 0.75rem;
+  color: #718096;
+  cursor: help;
+}
+
+.date-filter-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.filter-type-toggle {
+  display: flex;
+  background: #f7fafc;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  border: 1px solid #e2e8f0;
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn.active {
+  background: #1b85b8;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(220, 38, 38, 0.2);
+}
+
+.toggle-btn:hover:not(.active) {
+  background: #edf2f7;
+  color: #1a202c;
+}
+
+.single-date-input,
+.date-range-inputs {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.date-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 150px;
+}
+
+.date-icon {
+  position: absolute;
+  left: 0.75rem;
+  color: #718096;
+  font-size: 0.875rem;
+  pointer-events: none;
+}
+
+.date-input {
+  appearance: none;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  font-size: 0.875rem;
+  color: #1a202c;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.date-input:hover {
+  border-color: #1b85b8;
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.1);
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #1b85b8;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.date-separator {
+  font-size: 0.875rem;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.clear-dates-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  color: #718096;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: flex-start;
+}
+
+.clear-dates-btn:hover {
+  background: #edf2f7;
+  color: #1b85b8;
+  border-color: #1b85b8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .single-date-input,
+  .date-range-inputs {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  
+  .date-separator {
+    text-align: center;
+  }
+  
+  .clear-dates-btn {
+    align-self: stretch;
+    justify-content: center;
+  }
+} 
