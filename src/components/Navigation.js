@@ -1,38 +1,65 @@
 import React from 'react';
-import { FaHome, FaLayerGroup, FaCogs, FaUsers } from 'react-icons/fa';
+import { FaIndustry, FaCogs, FaUsers, FaChartLine, FaUserTie, FaCog, FaShieldAlt } from 'react-icons/fa';
 import '../styles/Navigation.css';
 
-const Navigation = ({ currentView, setCurrentView }) => (
-  <nav className="dashboard-nav">
-    <button 
-      className={`nav-btn ${currentView === 'shop-floor' ? 'active' : ''}`}
-      onClick={() => setCurrentView('shop-floor')}
-    >
-      <FaHome />
-      <span>Shop Floor</span>
-    </button>
-    <button 
-      className={`nav-btn ${currentView === 'cells' ? 'active' : ''}`}
-      onClick={() => setCurrentView('cells')}
-    >
-      <FaLayerGroup />
-      <span>Cells</span>
-    </button>
-    <button 
-      className={`nav-btn ${currentView === 'machines' ? 'active' : ''}`}
-      onClick={() => setCurrentView('machines')}
-    >
-      <FaCogs />
-      <span>Machines</span>
-    </button>
-    <button 
-      className={`nav-btn ${currentView === 'operators' ? 'active' : ''}`}
-      onClick={() => setCurrentView('operators')}
-    >
-      <FaUsers />
-      <span>Operators</span>
-    </button>
-  </nav>
-);
+const Navigation = ({ currentView, setCurrentView }) => {
+  const navItems = [
+    {
+      id: 'shop-floor',
+      label: 'Shop Floor',
+      icon: <FaIndustry />,
+      description: 'Overall shop floor overview'
+    },
+    {
+      id: 'floor-manager',
+      label: 'Floor Manager',
+      icon: <FaUserTie />,
+      description: 'Live status and production monitoring'
+    },
+    {
+      id: 'cell-manager',
+      label: 'Cell Manager',
+      icon: <FaCog />,
+      description: 'Cell-wide performance and coordination'
+    },
+    {
+      id: 'qa-manager',
+      label: 'QA Manager',
+      icon: <FaShieldAlt />,
+      description: 'Quality control and process stability'
+    },
+    {
+      id: 'machines',
+      label: 'Machines',
+      icon: <FaCogs />,
+      description: 'Individual machine monitoring'
+    },
+    {
+      id: 'operators',
+      label: 'Operators',
+      icon: <FaUsers />,
+      description: 'Operator performance tracking'
+    }
+  ];
+
+  return (
+    <nav className="navigation">
+      <ul className="nav-list">
+        {navItems.map((item) => (
+          <li key={item.id} className="nav-item">
+            <button
+              className={`nav-button ${currentView === item.id ? 'active' : ''}`}
+              onClick={() => setCurrentView(item.id)}
+              title={item.description}
+            >
+              <span className="nav-icon">{item.icon}</span>
+              <span className="nav-label">{item.label}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+};
 
 export default Navigation; 

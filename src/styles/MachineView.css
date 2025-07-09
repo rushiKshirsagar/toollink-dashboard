@@ -69,7 +69,7 @@
 
 .status-badge.running {
   background: rgba(220, 38, 38, 0.1);
-  color: #1b85b8;
+  color: white;
   border: 1px solid rgba(220, 38, 38, 0.3);
 }
 

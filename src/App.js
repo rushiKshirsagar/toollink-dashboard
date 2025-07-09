@@ -9,6 +9,9 @@ import ParticleBackground from './components/ParticleBackground';
 
 // Views
 import ShopFloorView from './views/ShopFloorView';
+import FloorManagerView from './views/FloorManagerView';
+import CellManagerView from './views/CellManagerView';
+import QAManagerView from './views/QAManagerView';
 import CellsView from './views/CellsView';
 import MachineView from './views/MachineView';
 import OperatorsView from './views/OperatorsView';
@@ -70,6 +73,32 @@ function App() {
             COLORS={COLORS}
             cellOptions={cellOptions}
             operatorOptions={operatorOptions}
+          />
+        );
+      case 'floor-manager':
+        return (
+          <FloorManagerView 
+            machinesData={machinesData}
+            shopFloorData={shopFloorData}
+            productionTrends={productionTrends}
+            COLORS={COLORS}
+          />
+        );
+      case 'cell-manager':
+        return (
+          <CellManagerView 
+            cellsData={cellsData}
+            machinesData={machinesData}
+            COLORS={COLORS}
+          />
+        );
+      case 'qa-manager':
+        return (
+          <QAManagerView 
+            machinesData={machinesData}
+            operatorsData={operatorsData}
+            shopFloorData={shopFloorData}
+            COLORS={COLORS}
           />
         );
       case 'cells':

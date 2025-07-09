@@ -1,11 +1,24 @@
 /* Navigation Styles - Minimalist Professional */
-.dashboard-nav {
+.navigation {
   display: flex;
-  gap: 0.5rem;
   align-items: center;
 }
 
-.nav-btn {
+.nav-list {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.nav-item {
+  margin: 0;
+}
+
+.nav-button {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -21,9 +34,10 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
 }
 
-.nav-btn:hover {
+.nav-button:hover {
   background: #f7fafc;
   border-color: #1b85b8;
   color: #1a202c;
@@ -31,27 +45,72 @@
   box-shadow: 0 2px 6px rgba(220, 38, 38, 0.1);
 }
 
-.nav-btn.active {
+.nav-button.active {
   background: #1b85b8;
   color: #ffffff;
   border-color: #1b85b8;
   box-shadow: 0 2px 6px rgba(220, 38, 38, 0.2);
 }
 
-.nav-btn svg {
+.nav-icon {
   font-size: 1rem;
 }
 
+.nav-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
 /* Responsive */
-@media (max-width: 768px) {
-  .dashboard-nav {
-    flex-direction: column;
+@media (max-width: 1024px) {
+  .nav-list {
     gap: 0.25rem;
   }
   
-  .nav-btn {
+  .nav-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .nav-label {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navigation {
+    width: 100%;
+  }
+  
+  .nav-list {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.25rem;
+  }
+  
+  .nav-button {
     width: 100%;
     justify-content: center;
     padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+  
+  .nav-label {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
+  }
+  
+  .nav-label {
+    font-size: 0.7rem;
+  }
+  
+  .nav-icon {
+    font-size: 0.9rem;
   }
 } 
