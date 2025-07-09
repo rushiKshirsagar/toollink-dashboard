@@ -2,6 +2,7 @@
   "name": "cnc-dashboard",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://rushikshirsagar.github.io/toollink-dashboard",
   "dependencies": {
     "cra-template-pwa": "2.0.0",
     "react": "^19.1.0",
