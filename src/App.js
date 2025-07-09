@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { FaRocket } from 'react-icons/fa';
+import { SiSololearn } from "react-icons/si";
+
 
 // Components
 import Navigation from './components/Navigation';
@@ -113,7 +115,7 @@ function App() {
       <header className="dashboard-header">
         <div className="header-content">
           <div className="logo-section">
-            <FaRocket className="logo-icon" />
+            <SiSololearn className="logo-icon" />
             <h1 style={{color: 'white'}}>ToolLink Dashboard</h1>
           </div>
           <Navigation currentView={currentView} setCurrentView={setCurrentView} />

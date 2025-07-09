@@ -110,7 +110,7 @@ const CellsView = ({ cellsData, setSelectedCell }) => {
               <defs>
                 <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="#1b85b8" />
-                  <stop offset="100%" stopColor="#b91c1c" />
+                  <stop offset="100%" stopColor="#1b85b8" />
                 </linearGradient>
               </defs>
             </BarChart>
