@@ -15,6 +15,7 @@ import QAManagerView from './views/QAManagerView';
 import CellsView from './views/CellsView';
 import MachineView from './views/MachineView';
 import OperatorsView from './views/OperatorsView';
+import DataEntryView from './views/DataEntryView';
 
 // Hooks
 import { useParticles } from './hooks/useParticles';
@@ -120,6 +121,14 @@ function App() {
           <OperatorsView 
             operatorsData={operatorsData}
             operatorPerformance={operatorPerformance}
+            operatorOptions={operatorOptions}
+          />
+        );
+      case 'data-entry':
+        return (
+          <DataEntryView 
+            cellOptions={cellOptions}
+            machineOptions={machineOptions}
             operatorOptions={operatorOptions}
           />
         );

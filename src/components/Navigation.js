@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaIndustry, FaCogs, FaUsers, FaChartLine, FaUserTie, FaCog, FaShieldAlt } from 'react-icons/fa';
+import { FaIndustry, FaCogs, FaUsers, FaChartLine, FaUserTie, FaCog, FaShieldAlt, FaChartBar } from 'react-icons/fa';
 import '../styles/Navigation.css';
 
 const Navigation = ({ currentView, setCurrentView }) => {
@@ -39,6 +39,12 @@ const Navigation = ({ currentView, setCurrentView }) => {
       label: 'Operators',
       icon: <FaUsers />,
       description: 'Operator performance tracking'
+    },
+    {
+      id: 'data-entry',
+      label: 'Data Entry',
+      icon: <FaChartBar />, // Using FaChartBar for data entry
+      description: 'Operator data entry for each CNC cycle'
     }
   ];
 

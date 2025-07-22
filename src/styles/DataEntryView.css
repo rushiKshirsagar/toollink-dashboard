@@ -1,0 +1,148 @@
+/* Minimalistic, professional theme with white background and blue (#1b85b8) accents */
+
+.view-content {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  padding: 32px 24px 24px 24px;
+  width: 100%;
+}
+
+.view-header h2 {
+  color: #1b1b1b;
+  margin-bottom: 4px;
+}
+
+.view-header p {
+  color: #888;
+  margin-bottom: 24px;
+}
+
+.data-entry-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.form-row {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
+}
+
+.input-group label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #1b85b8;
+}
+
+.input-group input[type="number"] {
+  padding: 10px 12px;
+  border: 1.5px solid #1b85b8;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  margin-bottom: 8px;
+  background: #f5faff;
+  color: #222;
+  transition: border 0.2s;
+}
+.input-group input[type="number"]:focus {
+  border-color: #16648a;
+  background: #eaf6fb;
+}
+
+.checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.checkbox-label {
+  font-size: 0.97rem;
+  color: #444;
+  cursor: pointer;
+  user-select: none;
+}
+
+.timer-row {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.timer-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  color: #1b85b8;
+  background: #f5faff;
+  border-radius: 8px;
+  padding: 8px 16px;
+}
+
+.timer-btn {
+  background: none;
+  border: none;
+  color: #1b85b8;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 4px;
+  transition: color 0.2s;
+}
+.timer-btn:hover {
+  color: #16648a;
+}
+
+.submit-btn {
+  background: #1b85b8;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 8px rgba(27,133,184,0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.submit-btn:hover {
+  background: #16648a;
+  box-shadow: 0 4px 16px rgba(27,133,184,0.12);
+}
+
+.graph-section {
+  margin-top: 32px;
+  background: #f5faff;
+  border-radius: 12px;
+  padding: 18px 12px 8px 12px;
+  box-shadow: 0 1px 8px rgba(27,133,184,0.04);
+}
+
+.graph-section h3 {
+  color: #1b85b8;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+@media (max-width: 700px) {
+  .view-content {
+    padding: 12px 2vw;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+} 
