@@ -3,7 +3,7 @@ import { FaClock, FaPlus, FaMinus, FaCheck, FaTimes, FaChartLine, FaPlay } from 
 import Dropdown from '../components/Dropdown';
 import '../styles/DataEntryView.css';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { machinesData, operatorOptions } from '../data/mockData';
+import { machinesData, operatorOptions, targetDimensions } from '../data/mockData';
 import { operatorsData } from '../data/mockData';
 
 const REJECTION_CODES = [
@@ -41,18 +41,13 @@ const DataEntryView = ({ cellOptions, machineOptions, operatorOptions: propOpera
   const [selectedMachine, setSelectedMachine] = useState('');
   const [partOptions, setPartOptions] = useState([]);
   const [selectedPart, setSelectedPart] = useState('');
-  const [frequency, setFrequency] = useState('per-part');
-  const [customFrequency, setCustomFrequency] = useState('');
   const [selectedOperator, setSelectedOperator] = useState('');
   const [selectedShift, setSelectedShift] = useState('');
-  const [partsProduced, setPartsProduced] = useState('');
-  const [partsRejected, setPartsRejected] = useState('');
+  const [measurement, setMeasurement] = useState('');
+  const [measurementData, setMeasurementData] = useState([]);
   const [selectedRejectionCode, setSelectedRejectionCode] = useState('');
   const [downtime, setDowntime] = useState('');
   const [selectedDowntimeCode, setSelectedDowntimeCode] = useState('');
-  const [timer, setTimer] = useState(CYCLE_TIME_SEC);
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const [graphData, setGraphData] = useState([]);
   const [errors, setErrors] = useState({});
   const timerRef = useRef();
 
@@ -89,25 +84,6 @@ const DataEntryView = ({ cellOptions, machineOptions, operatorOptions: propOpera
     setSelectedShift('');
   }, [selectedMachine]);
 
-  // Timer logic (frequency-based)
-  useEffect(() => {
-    let freqSec = CYCLE_TIME_SEC;
-    if (frequency === 'per-part') freqSec = CYCLE_TIME_SEC;
-    else if (frequency === 'custom' && customFrequency) freqSec = Number(customFrequency) * 60;
-    else if (!isNaN(Number(frequency))) freqSec = Number(frequency) * 60;
-    setTimer(freqSec);
-    setIsTimerRunning(false);
-  }, [frequency, customFrequency, selectedCell, selectedMachine, selectedPart]);
-
-  useEffect(() => {
-    if (isTimerRunning && timer > 0) {
-      timerRef.current = setTimeout(() => setTimer(timer - 1), 1000);
-    } else if (timer === 0) {
-      setIsTimerRunning(false);
-    }
-    return () => clearTimeout(timerRef.current);
-  }, [isTimerRunning, timer]);
-
   // Validation
   const validate = () => {
     const newErrors = {};
@@ -116,37 +92,22 @@ const DataEntryView = ({ cellOptions, machineOptions, operatorOptions: propOpera
     if (!selectedPart) newErrors.part = 'Please select a part/job code.';
     if (!selectedOperator) newErrors.operator = 'Please select an operator.';
     if (!selectedShift) newErrors.shift = 'Please select a shift.';
-    if (Number(partsRejected) > 0 && !selectedRejectionCode) {
-      newErrors.rejection = 'Please select a rejection reason.';
-    }
-    if (downtime && !selectedDowntimeCode) {
-      newErrors.downtime = 'Please select a downtime reason.';
-    }
-    if (frequency === 'custom' && (!customFrequency || isNaN(Number(customFrequency)) || Number(customFrequency) <= 0)) {
-      newErrors.frequency = 'Enter a valid custom frequency in minutes.';
+    if (!measurement || isNaN(Number(measurement))) newErrors.measurement = 'Enter a valid measurement.';
+    // If rejected, require rejection reason
+    const targetInfo = getTargetInfo();
+    if (targetInfo && measurement) {
+      const value = parseFloat(measurement);
+      if (Math.abs(value - targetInfo.target) > targetInfo.tolerance && !selectedRejectionCode) {
+        newErrors.rejection = 'Please select a rejection reason.';
+      }
     }
     return newErrors;
   };
 
-  // Helper to get next timestamp for interval-based frequency
-  const getNextTimestamp = () => {
-    if (frequency === 'per-part') {
-      return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    } else {
-      // If graphData is empty, use now; else increment last timestamp by interval
-      let lastDate = new Date();
-      if (graphData.length > 0) {
-        const last = graphData[graphData.length - 1];
-        // Parse last.time as HH:mm:ss
-        const [h, m, s] = last.time.split(':').map(Number);
-        lastDate.setHours(h, m, s || 0, 0);
-      }
-      let intervalMin = 15;
-      if (frequency === 'custom' && customFrequency) intervalMin = Number(customFrequency);
-      else if (!isNaN(Number(frequency))) intervalMin = Number(frequency);
-      lastDate.setMinutes(lastDate.getMinutes() + intervalMin);
-      return lastDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    }
+  // Get target/tolerance for selected machine+part
+  const getTargetInfo = () => {
+    if (!selectedMachine || !selectedPart) return null;
+    return targetDimensions[`${selectedMachine}_${selectedPart}`];
   };
 
   const handleSubmit = (e) => {
@@ -154,29 +115,55 @@ const DataEntryView = ({ cellOptions, machineOptions, operatorOptions: propOpera
     const validationErrors = validate();
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length > 0) return;
-    setGraphData((prev) => [
+    const targetInfo = getTargetInfo();
+    let rejected = 0;
+    let rejectionReason = '';
+    if (targetInfo) {
+      const value = parseFloat(measurement);
+      if (Math.abs(value - targetInfo.target) > targetInfo.tolerance) {
+        rejected = 1;
+        rejectionReason = REJECTION_CODES.find(r => r.value === selectedRejectionCode)?.label || '';
+      }
+    }
+    setMeasurementData((prev) => [
       ...prev,
       {
-        time: getNextTimestamp(),
-        produced: Number(partsProduced),
-        rejected: Number(partsRejected),
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+        measurement: parseFloat(measurement),
+        rejected,
+        rejectionReason,
         operator: selectedOperator,
         shift: selectedShift
       }
     ]);
-    setPartsProduced('');
-    setPartsRejected('');
+    setMeasurement('');
     setSelectedRejectionCode('');
-    setDowntime('');
-    setSelectedDowntimeCode('');
     setErrors({});
+  };
+
+  // Custom tooltip for recharts
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      const entry = payload[0].payload;
+      return (
+        <div style={{ background: '#fff', border: '1.5px solid #1b85b8', borderRadius: 8, padding: 10, color: '#1b85b8' }}>
+          <div><b>Time:</b> {label}</div>
+          <div><b>Measurement:</b> {entry.measurement?.toFixed(3)} mm</div>
+          <div><b>Rejected:</b> {entry.rejected ? 'Yes' : 'No'}</div>
+          {entry.rejected && entry.rejectionReason && (
+            <div><b>Reason:</b> {entry.rejectionReason}</div>
+          )}
+        </div>
+      );
+    }
+    return null;
   };
 
   return (
     <div className="view-content">
       <div className="view-header">
         <h2 style={{ color: '#1b85b8', letterSpacing: '0.5px', fontWeight: 700 }}>Operator Data Entry</h2>
-        <p style={{ color: '#16648a', fontWeight: 500 }}>Enter production data after each CNC cycle. Please fill all required fields.</p>
+        <p style={{ color: '#16648a', fontWeight: 500 }}>Enter measurement after each CNC cycle. Please fill all required fields.</p>
       </div>
       <form className="data-entry-form" onSubmit={handleSubmit}>
         <div className="form-row">
@@ -226,103 +213,60 @@ const DataEntryView = ({ cellOptions, machineOptions, operatorOptions: propOpera
             {errors.operator && <span style={{ color: '#e53e3e', fontSize: '0.95em', marginTop: 2 }}>{errors.operator}</span>}
             {errors.shift && <span style={{ color: '#e53e3e', fontSize: '0.95em', marginTop: 2 }}>{errors.shift}</span>}
             <div className="form-row">
-              <Dropdown
-                label="Entry Frequency"
-                options={FREQUENCY_OPTIONS}
-                value={frequency}
-                onChange={setFrequency}
-                placeholder="Select frequency"
-              />
-              {frequency === 'custom' && (
-                <div className="input-group">
-                  <label>Custom Frequency (minutes)</label>
-                  <input
-                    type="number"
-                    min="1"
-                    value={customFrequency}
-                    onChange={e => setCustomFrequency(e.target.value)}
-                    style={{ borderColor: errors.frequency ? '#e53e3e' : undefined }}
-                  />
-                  {errors.frequency && <span style={{ color: '#e53e3e', fontSize: '0.95em', marginTop: 2 }}>{errors.frequency}</span>}
-                </div>
-              )}
-            </div>
-            <div className="form-row">
               <div className="input-group">
-                <label>Parts Produced</label>
+                <label>Measurement (mm)</label>
                 <input
                   type="number"
-                  min="0"
-                  value={partsProduced}
-                  onChange={e => setPartsProduced(e.target.value)}
+                  step="0.001"
+                  value={measurement}
+                  onChange={e => setMeasurement(e.target.value)}
                   required
+                  style={{ borderColor: errors.measurement ? '#e53e3e' : undefined }}
                 />
-              </div>
-              <div className="input-group">
-                <label>Parts Rejected</label>
-                <input
-                  type="number"
-                  min="0"
-                  value={partsRejected}
-                  onChange={e => setPartsRejected(e.target.value)}
-                  required
-                />
-                {Number(partsRejected) > 0 && (
-                  <>
-                    <Dropdown
-                      label="Rejection Reason"
-                      options={REJECTION_CODES}
-                      value={selectedRejectionCode}
-                      onChange={setSelectedRejectionCode}
-                      placeholder="Select reason"
-                    />
-                    {errors.rejection && <span style={{ color: '#e53e3e', fontSize: '0.95em', marginTop: 2 }}>{errors.rejection}</span>}
-                  </>
+                {errors.measurement && <span style={{ color: '#e53e3e', fontSize: '0.95em', marginTop: 2 }}>{errors.measurement}</span>}
+                {getTargetInfo() && (
+                  <span style={{ color: '#1b85b8', fontSize: '0.95em', marginTop: 2 }}>
+                    Target: {getTargetInfo().target.toFixed(3)} mm &nbsp; | &nbsp; Tolerance: ±{getTargetInfo().tolerance.toFixed(3)} mm
+                  </span>
                 )}
               </div>
+              <div className="input-group">
+                <label>Rejected?</label>
+                <input
+                  type="text"
+                  value={(() => {
+                    if (!measurement || !getTargetInfo()) return '';
+                    const value = parseFloat(measurement);
+                    return Math.abs(value - getTargetInfo().target) > getTargetInfo().tolerance ? 'Yes' : 'No';
+                  })()}
+                  readOnly
+                  style={{ background: '#f5faff', color: '#222', border: '1.5px solid #1b85b8', borderRadius: 8, padding: '10px 12px' }}
+                />
+              </div>
+              {/* Rejection reason dropdown if rejected */}
+              {(() => {
+                const info = getTargetInfo();
+                if (!info || !measurement) return null;
+                const value = parseFloat(measurement);
+                if (Math.abs(value - info.target) > info.tolerance) {
+                  return (
+                    <div className="input-group">
+                      {/* <label>Rejection Reason</label> */}
+                      <Dropdown
+                        label="Rejection Reason"
+                        options={REJECTION_CODES}
+                        value={selectedRejectionCode}
+                        onChange={setSelectedRejectionCode}
+                        placeholder="Select reason"
+                      />
+                      {errors.rejection && <span style={{ color: '#e53e3e', fontSize: '0.95em', marginTop: 2 }}>{errors.rejection}</span>}
+                    </div>
+                  );
+                }
+                return null;
+              })()}
             </div>
             <div className="form-row">
-              <div className="input-group downtime-group">
-                <label>Downtime (min)</label>
-                <input
-                  type="number"
-                  min="0"
-                  value={downtime}
-                  onChange={e => setDowntime(e.target.value)}
-                />
-                {downtime && (
-                  <>
-                    <Dropdown
-                      label="Downtime Reason"
-                      options={DOWNTIME_CODES}
-                      value={selectedDowntimeCode}
-                      onChange={setSelectedDowntimeCode}
-                      placeholder="Select reason"
-                    />
-                    {errors.downtime && <span style={{ color: '#e53e3e', fontSize: '0.95em', marginTop: 2 }}>{errors.downtime}</span>}
-                  </>
-                )}
-              </div>
-            </div>
-            <div className="form-row timer-row">
-              <div className="timer-display">
-                <FaClock />
-                <span>Next Cycle: {timer}s</span>
-                <button
-                  type="button"
-                  className="timer-btn"
-                  onClick={() => setIsTimerRunning(!isTimerRunning)}
-                >
-                  {isTimerRunning ? <FaTimes /> : <FaPlay />}
-                </button>
-                <button
-                  type="button"
-                  className="timer-btn"
-                  onClick={() => { setTimer(timer); setIsTimerRunning(false); }}
-                >
-                  <FaTimes />
-                </button>
-              </div>
               <button className="submit-btn" type="submit">
                 <FaCheck /> Submit Entry
               </button>
@@ -330,16 +274,63 @@ const DataEntryView = ({ cellOptions, machineOptions, operatorOptions: propOpera
           </>
         )}
       </form>
+      {/* Measurement Control Chart */}
+      <div className="graph-section">
+        <h3>Measurement Control Chart</h3>
+        <ResponsiveContainer width="100%" height={250}>
+          <LineChart data={measurementData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="time" />
+            <YAxis domain={(() => {
+              const info = getTargetInfo();
+              if (!info) return [0, 'auto'];
+              return [info.target - info.tolerance * 2, info.target + info.tolerance * 2];
+            })()} />
+            <Tooltip content={<CustomTooltip />} />
+            <Legend />
+            {/* Amber/green zones would require custom overlays; skip for now */}
+            <Line
+              type="monotone"
+              dataKey="measurement"
+              stroke="#1b85b8"
+              dot={{
+                stroke: d => {
+                  const info = getTargetInfo();
+                  if (!info) return '#38a169';
+                  if (Math.abs(d.measurement - info.target) > info.tolerance * 2) return '#e53e3e';
+                  if (Math.abs(d.measurement - info.target) > info.tolerance) return '#f6ad55';
+                  return '#38a169';
+                },
+                strokeWidth: 2,
+                r: 6
+              }}
+              name="Measurement"
+            />
+            {/* Target/control line */}
+            {getTargetInfo() && (
+              <Line
+                type="linear"
+                dataKey={() => getTargetInfo().target}
+                stroke="#e53e3e"
+                strokeDasharray="5 5"
+                dot={false}
+                name="Target"
+              />
+            )}
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+      {/* Move old production graph to bottom */}
       <div className="graph-section">
         <h3>Real-Time Production Graph</h3>
-        <ResponsiveContainer width="100%" height={250}>
-          <LineChart data={graphData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+        <ResponsiveContainer width="100%" height={200}>
+          <LineChart data={measurementData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="time" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="produced" stroke="#1b85b8" name="Jobs Produced" />
+            <Line type="monotone" dataKey={() => 1} stroke="#1b85b8" name="Jobs Produced" />
             <Line type="monotone" dataKey="rejected" stroke="#e53e3e" name="Jobs Rejected" />
           </LineChart>
         </ResponsiveContainer>

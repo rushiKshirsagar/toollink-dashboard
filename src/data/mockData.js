@@ -1136,3 +1136,18 @@ export const operatorOptions = [
   { value: '', label: 'All Operators' },
   ...operatorsData.map(operator => ({ value: operator.id, label: operator.name }))
 ]; 
+
+// Target dimensions for each machine/program (mock)
+export const targetDimensions = {
+  // key: machineId_programNumber
+  'M-001_P001': { target: 50.000, tolerance: 1.000 },
+  'M-002_P002': { target: 75.500, tolerance: 0.800 },
+  'M-003_P003': { target: 32.250, tolerance: 0.500 },
+  'M-004_P004': { target: 60.000, tolerance: 1.200 },
+  'M-006_P006': { target: 44.000, tolerance: 0.900 },
+  'M-007_P007': { target: 28.000, tolerance: 0.700 },
+  'M-008_P008': { target: 90.000, tolerance: 1.500 },
+  'M-010_P010': { target: 100.000, tolerance: 1.000 },
+  'M-011_P011': { target: 20.000, tolerance: 0.600 },
+  'M-012_P012': { target: 55.000, tolerance: 1.100 },
+}; 

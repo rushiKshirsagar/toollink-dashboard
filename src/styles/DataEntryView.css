@@ -60,6 +60,16 @@
   background: #eaf6fb;
 }
 
+.input-group input[type="text"][readonly] {
+  background: #f5faff;
+  color: #222;
+  border: 1.5px solid #1b85b8;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
 .checkbox-list {
   display: flex;
   flex-direction: column;
@@ -135,6 +145,11 @@
   margin-bottom: 12px;
   font-size: 1.1rem;
   font-weight: 600;
+}
+
+/* Add spacing for the new chart */
+.graph-section + .graph-section {
+  margin-top: 24px;
 }
 
 @media (max-width: 700px) {
