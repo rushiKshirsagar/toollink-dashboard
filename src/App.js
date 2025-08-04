@@ -16,6 +16,7 @@ import CellsView from './views/CellsView';
 import MachineView from './views/MachineView';
 import OperatorsView from './views/OperatorsView';
 import DataEntryView from './views/DataEntryView';
+import DemoView from './views/DemoView';
 
 // Hooks
 import { useParticles } from './hooks/useParticles';
@@ -132,6 +133,10 @@ function App() {
             operatorOptions={operatorOptions}
           />
         );
+      case 'demo':
+        return (
+          <DemoView />
+        );
       default:
         return (
           <ShopFloorView 
@@ -154,7 +159,7 @@ function App() {
         <div className="header-content">
           <div className="logo-section">
             <SiSololearn className="logo-icon" />
-            <h1 style={{color: 'white'}}>ToolLink Dashboard</h1>
+            <h1 style={{color: 'white', fontFamily: "cursive"}}>ToolLink</h1>
           </div>
           <Navigation currentView={currentView} setCurrentView={setCurrentView} />
         </div>

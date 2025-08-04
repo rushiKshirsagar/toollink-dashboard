@@ -28,16 +28,14 @@ const OperatorCard = ({ operator, onClick }) => (
           value={operator.efficiency} 
           unit="%" 
           icon={<FaChartLine />}
-          color="#1b85b8"
-          gradient={true}
+          color="#00ffff"
         />
         <StatCard 
           title="Hours Worked" 
           value={operator.hoursWorked} 
           unit=" hrs" 
           icon={<FaClock />}
-          color="#2d3748"
-          gradient={true}
+          color="#ff00ff"
         />
       </div>
       
@@ -47,16 +45,14 @@ const OperatorCard = ({ operator, onClick }) => (
           value={operator.partsProduced} 
           unit=" parts" 
           icon={<FaIndustry />}
-          color="#718096"
-          gradient={true}
+          color="#00ff00"
         />
         <StatCard 
           title="Quality Score" 
           value={operator.qualityScore} 
           unit="%" 
           icon={<FaShieldAlt />}
-          color="#1b85b8"
-          gradient={true}
+          color="#00ffff"
         />
       </div>
 
@@ -66,16 +62,14 @@ const OperatorCard = ({ operator, onClick }) => (
           value={operator.rejections} 
           unit=" parts" 
           icon={<FaTimesCircle />}
-          color="#e53e3e"
-          gradient={true}
+          color="#ff6b6b"
         />
         <StatCard 
           title="Rejection Rate" 
           value={operator.rejectionRate} 
           unit="%" 
           icon={<FaExclamationTriangle />}
-          color="#f6ad55"
-          gradient={true}
+          color="#ffa500"
         />
       </div>
 
@@ -85,16 +79,14 @@ const OperatorCard = ({ operator, onClick }) => (
           value={operator.assignedMachines} 
           unit=" machines" 
           icon={<FaCogs />}
-          color="#2d3748"
-          gradient={true}
+          color="#00ffff"
         />
         <StatCard 
           title="Active Jobs" 
           value={operator.activeJobs} 
           unit=" jobs" 
           icon={<FaNetworkWired />}
-          color="#718096"
-          gradient={true}
+          color="#ff00ff"
         />
       </div>
     </div>

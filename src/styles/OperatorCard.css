@@ -1,20 +1,39 @@
-/* OperatorCard Styles - Minimalist Professional */
+/* OperatorCard Styles - Futuristic Professional */
 .operator-card {
-  background: #ffffff;
-  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 1rem;
   padding: 1.5rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.operator-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.operator-card:hover::before {
+  left: 100%;
 }
 
 .operator-card:hover {
-  transform: translateY(-3px);
-  border-color: #1b85b8;
-  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.1);
+  transform: translateY(-5px) scale(1.02);
+  border-color: rgba(0, 255, 255, 0.3);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(0, 255, 255, 0.3);
 }
 
 .operator-header {
@@ -27,15 +46,22 @@
 .operator-avatar {
   width: 60px;
   height: 60px;
-  background: #f7fafc;
+  background: rgba(0, 255, 255, 0.1);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
-  color: #1b85b8;
-  border: 2px solid rgba(220, 38, 38, 0.3);
+  color: #00ffff;
+  border: 2px solid rgba(0, 255, 255, 0.3);
   flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.operator-card:hover .operator-avatar {
+  transform: scale(1.1);
+  border-color: rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
 }
 
 .operator-info {
@@ -43,15 +69,15 @@
 }
 
 .operator-info h3 {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  color: #1a202c;
+  color: #ffffff;
   margin: 0 0 0.25rem 0;
 }
 
 .operator-id {
   font-size: 0.75rem;
-  color: #4a5568;
+  color: #b0b0b0;
   font-family: 'Courier New', monospace;
   margin: 0 0 0.5rem 0;
 }
@@ -59,22 +85,30 @@
 .status-badge {
   padding: 0.25rem 0.75rem;
   border-radius: 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.7rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  transition: all 0.3s ease;
 }
 
 .status-badge.active {
-  background: rgba(220, 38, 38, 0.1);
-  color: white;
-  border: 1px solid rgba(220, 38, 38, 0.3);
+  background: rgba(0, 255, 0, 0.2);
+  color: #00ff00;
+  border: 1px solid rgba(0, 255, 0, 0.3);
 }
 
 .status-badge.break {
-  background: rgba(246, 173, 85, 0.1);
-  color: #f6ad55;
-  border: 1px solid rgba(246, 173, 85, 0.3);
+  background: rgba(255, 165, 0, 0.2);
+  color: #ffa500;
+  border: 1px solid rgba(255, 165, 0, 0.3);
+}
+
+.status-badge.offline {
+  background: rgba(128, 128, 128, 0.2);
+  color: #808080;
+  border: 1px solid rgba(128, 128, 128, 0.3);
 }
 
 .operator-stats {
@@ -91,14 +125,14 @@
 }
 
 .operator-tasks {
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 1rem;
 }
 
 .operator-tasks h4 {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #1a202c;
+  color: #ffffff;
   margin: 0 0 0.75rem 0;
 }
 
@@ -112,26 +146,34 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem;
-  background: #f7fafc;
-  border-radius: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.5rem;
   font-size: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.task-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(0, 255, 255, 0.3);
+  transform: translateX(5px);
 }
 
 .task-machine {
   font-weight: 600;
-  color: #1b85b8;
+  color: #00ffff;
   font-family: 'Courier New', monospace;
 }
 
 .task-progress {
   font-weight: 700;
-  color: #f6ad55;
+  color: #ffa500;
 }
 
 .more-tasks {
   font-size: 0.75rem;
-  color: #718096;
+  color: #b0b0b0;
   text-align: center;
   font-style: italic;
 }
@@ -145,5 +187,9 @@
   
   .stat-row {
     grid-template-columns: 1fr;
+  }
+  
+  .operator-info h3 {
+    font-size: 1.1rem;
   }
 } 

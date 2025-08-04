@@ -1,69 +1,35 @@
 import React from 'react';
-import { FaIndustry, FaCogs, FaUsers, FaChartLine, FaUserTie, FaCog, FaShieldAlt, FaChartBar } from 'react-icons/fa';
+import { 
+  FaIndustry, FaUsers, FaChartBar, FaCogs, 
+  FaEye, FaUser, FaFileAlt, FaPlay
+} from 'react-icons/fa';
 import '../styles/Navigation.css';
 
 const Navigation = ({ currentView, setCurrentView }) => {
   const navItems = [
-    {
-      id: 'shop-floor',
-      label: 'Shop Floor',
-      icon: <FaIndustry />,
-      description: 'Overall shop floor overview'
-    },
-    {
-      id: 'floor-manager',
-      label: 'Floor Manager',
-      icon: <FaUserTie />,
-      description: 'Live status and production monitoring'
-    },
-    {
-      id: 'cell-manager',
-      label: 'Cell Manager',
-      icon: <FaCog />,
-      description: 'Cell-wide performance and coordination'
-    },
-    {
-      id: 'qa-manager',
-      label: 'QA Manager',
-      icon: <FaShieldAlt />,
-      description: 'Quality control and process stability'
-    },
-    {
-      id: 'machines',
-      label: 'Machines',
-      icon: <FaCogs />,
-      description: 'Individual machine monitoring'
-    },
-    {
-      id: 'operators',
-      label: 'Operators',
-      icon: <FaUsers />,
-      description: 'Operator performance tracking'
-    },
-    {
-      id: 'data-entry',
-      label: 'Data Entry',
-      icon: <FaChartBar />, // Using FaChartBar for data entry
-      description: 'Operator data entry for each CNC cycle'
-    }
+    { id: 'shop-floor', label: 'Shop Floor', icon: <FaIndustry /> },
+    { id: 'floor-manager', label: 'Floor Manager', icon: <FaCogs /> },
+    { id: 'cell-manager', label: 'Cell Manager', icon: <FaEye /> },
+    { id: 'qa-manager', label: 'QA Manager', icon: <FaChartBar /> },
+    { id: 'cells', label: 'Cells', icon: <FaIndustry /> },
+    { id: 'machines', label: 'Machines', icon: <FaCogs /> },
+    { id: 'operators', label: 'Operators', icon: <FaUsers /> },
+    { id: 'data-entry', label: 'Data Entry', icon: <FaFileAlt /> },
+    { id: 'demo', label: 'Demo', icon: <FaPlay /> }
   ];
 
   return (
-    <nav className="navigation">
-      <ul className="nav-list">
-        {navItems.map((item) => (
-          <li key={item.id} className="nav-item">
-            <button
-              className={`nav-button ${currentView === item.id ? 'active' : ''}`}
-              onClick={() => setCurrentView(item.id)}
-              title={item.description}
-            >
-              <span className="nav-icon">{item.icon}</span>
-              <span className="nav-label">{item.label}</span>
-            </button>
-          </li>
-        ))}
-      </ul>
+    <nav className="dashboard-navigation">
+      {navItems.map(item => (
+        <button
+          key={item.id}
+          className={`nav-button ${currentView === item.id ? 'active' : ''}`}
+          onClick={() => setCurrentView(item.id)}
+        >
+          <div className="nav-icon">{item.icon}</div>
+          <div className="nav-label">{item.label}</div>
+        </button>
+      ))}
     </nav>
   );
 };

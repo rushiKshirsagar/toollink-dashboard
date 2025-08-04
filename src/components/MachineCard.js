@@ -28,16 +28,18 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'running':
-        return '#38a169';
+        return '#00ff00';
       case 'idle':
-        return '#f6ad55';
+        return '#ffa500';
       case 'error':
       case 'stopped':
-        return '#e53e3e';
+        return '#ff6b6b';
       case 'maintenance':
-        return '#805ad5';
+        return '#00ffff';
+      case 'setup':
+        return '#ff00ff';
       default:
-        return '#718096';
+        return '#808080';
     }
   };
 
@@ -75,7 +77,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
             value={machine.temperature.toFixed(1)} 
             unit="°C" 
             icon={<FaThermometerHalf />}
-            color="#1b85b8"
+            color="#00ffff"
             gradient={true}
           />
           <StatCard 
@@ -83,7 +85,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
             value={machine.spindleSpeed} 
             unit=" RPM" 
             icon={<FaTachometerAlt />}
-            color="#2d3748"
+            color="#ff00ff"
             gradient={true}
           />
         </div>
@@ -94,7 +96,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
             value={machine.jobProgress.toFixed(1)} 
             unit="%" 
             icon={<FaClock />}
-            color="#1b85b8"
+            color="#00ffff"
             gradient={true}
           />
           <StatCard 
@@ -102,7 +104,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
             value={machine.efficiency} 
             unit="%" 
             icon={<FaChartLine />}
-            color="#2d3748"
+            color="#ff00ff"
             gradient={true}
           />
         </div>
@@ -113,7 +115,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
             value={machine.partsProduced} 
             unit=" parts" 
             icon={<FaIndustry />}
-            color="#718096"
+            color="#00ff00"
             gradient={true}
           />
           <StatCard 
@@ -121,7 +123,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
             value={machine.rejections} 
             unit=" parts" 
             icon={<FaTimesCircle />}
-            color="#e53e3e"
+            color="#ff6b6b"
             gradient={true}
           />
         </div>
@@ -132,7 +134,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
             value={machine.rejectionRate} 
             unit="%" 
             icon={<FaExclamationTriangle />}
-            color="#f6ad55"
+            color="#ffa500"
             gradient={true}
           />
           <StatCard 
@@ -140,7 +142,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
             value={machine.uptime} 
             unit="%" 
             icon={<FaCog />}
-            color="#68d391"
+            color="#00ff00"
             gradient={true}
           />
         </div>
@@ -153,7 +155,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
                 value={machine.oee} 
                 unit="%" 
                 icon={<FaChartLine />}
-                color="#1b85b8"
+                color="#00ffff"
                 gradient={true}
               />
               <StatCard 
@@ -161,7 +163,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
                 value={machine.spindleLoad} 
                 unit="%" 
                 icon={<FaTachometerAlt />}
-                color="#2d3748"
+                color="#ff00ff"
                 gradient={true}
               />
             </div>
@@ -172,7 +174,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
                 value={machine.cycleTime} 
                 unit=" min" 
                 icon={<FaClock />}
-                color="#f6ad55"
+                color="#ffa500"
                 gradient={true}
               />
               <StatCard 
@@ -180,7 +182,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
                 value={machine.idleTime} 
                 unit=" min" 
                 icon={<FaPause />}
-                color="#718096"
+                color="#00ff00"
                 gradient={true}
               />
             </div>
@@ -191,7 +193,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
                 value={machine.mttr} 
                 unit=" min" 
                 icon={<FaWrench />}
-                color="#805ad5"
+                color="#ff00ff"
                 gradient={true}
               />
               <StatCard 
@@ -199,7 +201,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
                 value={machine.mtbf} 
                 unit=" min" 
                 icon={<FaBolt />}
-                color="#38a169"
+                color="#00ff00"
                 gradient={true}
               />
             </div>
@@ -210,7 +212,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
                 value={machine.availability} 
                 unit="%" 
                 icon={<FaPlay />}
-                color="#1b85b8"
+                color="#00ffff"
                 gradient={true}
               />
               <StatCard 
@@ -218,7 +220,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
                 value={machine.performance} 
                 unit="%" 
                 icon={<FaTachometerAlt />}
-                color="#2d3748"
+                color="#ff00ff"
                 gradient={true}
               />
             </div>
@@ -229,7 +231,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
                 value={machine.quality} 
                 unit="%" 
                 icon={<FaChartLine />}
-                color="#38a169"
+                color="#00ff00"
                 gradient={true}
               />
               <StatCard 
@@ -237,7 +239,7 @@ const MachineCard = ({ machine, onClick, showDetailedMetrics = false }) => {
                 value={machine.feedRate} 
                 unit=" mm/min" 
                 icon={<FaCog />}
-                color="#f6ad55"
+                color="#ffa500"
                 gradient={true}
               />
             </div>

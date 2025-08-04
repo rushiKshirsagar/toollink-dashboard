@@ -1,24 +1,29 @@
-/* OperatorsView Styles - Minimalist Professional */
+/* OperatorsView Styles - Futuristic Professional */
 .view-content {
-  /* padding: 2rem; */
-  max-width: 1400px;
-  margin: 0 auto;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 .view-header {
   margin-bottom: 2rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .view-header h2 {
-  font-size: 1.875rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  color: #1a202c;
+  color: #ffffff;
   margin-bottom: 0.5rem;
 }
 
 .view-header p {
-  color: #4a5568;
-  font-size: 1rem;
+  color: #b0b0b0;
+  font-size: 1.1rem;
 }
 
 .dropdown-filters {
@@ -26,15 +31,26 @@
   gap: 1rem;
   margin-bottom: 2rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .operator-overview {
-  background: #ffffff;
-  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 1rem;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.operator-overview:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0, 255, 255, 0.3);
+  box-shadow: 
+    0 12px 35px rgba(0, 0, 0, 0.4),
+    0 0 15px rgba(0, 255, 255, 0.2);
 }
 
 .operator-info {
@@ -46,15 +62,22 @@
 .operator-avatar {
   width: 80px;
   height: 80px;
-  background: #f7fafc;
+  background: rgba(0, 255, 255, 0.1);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2rem;
-  color: #1b85b8;
-  border: 3px solid rgba(220, 38, 38, 0.3);
+  color: #00ffff;
+  border: 3px solid rgba(0, 255, 255, 0.3);
   flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.operator-overview:hover .operator-avatar {
+  transform: scale(1.1);
+  border-color: rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
 }
 
 .operator-details {
@@ -62,15 +85,15 @@
 }
 
 .operator-details h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #1a202c;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffffff;
   margin: 0 0 0.5rem 0;
 }
 
 .operator-id {
   font-size: 0.875rem;
-  color: #4a5568;
+  color: #b0b0b0;
   font-family: 'Courier New', monospace;
   margin: 0 0 1rem 0;
 }
@@ -85,21 +108,29 @@
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  transition: all 0.3s ease;
 }
 
 .status-badge.active {
-  background: rgba(220, 38, 38, 0.1);
-  color: #1b85b8;
-  border: 1px solid rgba(220, 38, 38, 0.3);
+  background: rgba(0, 255, 0, 0.2);
+  color: #00ff00;
+  border: 1px solid rgba(0, 255, 0, 0.3);
 }
 
 .status-badge.break {
-  background: rgba(246, 173, 85, 0.1);
-  color: #f6ad55;
-  border: 1px solid rgba(246, 173, 85, 0.3);
+  background: rgba(255, 165, 0, 0.2);
+  color: #ffa500;
+  border: 1px solid rgba(255, 165, 0, 0.3);
+}
+
+.status-badge.offline {
+  background: rgba(128, 128, 128, 0.2);
+  color: #808080;
+  border: 1px solid rgba(128, 128, 128, 0.3);
 }
 
 .stats-grid {
@@ -111,24 +142,55 @@
 
 .charts-section {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
 .chart-container {
-  background: #ffffff;
-  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 1rem;
   padding: 1.5rem;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.chart-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00ffff, #ff00ff, #00ff00);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.chart-container:hover::before {
+  opacity: 1;
+}
+
+.chart-container:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 255, 255, 0.3);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(0, 255, 255, 0.2);
 }
 
 .chart-container h3 {
-  font-size: 1.125rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  color: #1a202c;
-  margin-bottom: 1rem;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
 }
 
 .tasks-list {
@@ -138,10 +200,17 @@
 }
 
 .task-item {
-  background: #f7fafc;
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 0.5rem;
   padding: 1rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.task-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(0, 255, 255, 0.3);
+  transform: translateX(5px);
 }
 
 .task-header {
@@ -153,34 +222,34 @@
 
 .task-machine {
   font-weight: 600;
-  color: #1b85b8;
+  color: #00ffff;
   font-family: 'Courier New', monospace;
   font-size: 0.875rem;
 }
 
 .task-progress {
   font-weight: 700;
-  color: #f6ad55;
+  color: #ffa500;
   font-size: 0.875rem;
 }
 
 .task-description {
   font-size: 0.875rem;
-  color: #4a5568;
+  color: #b0b0b0;
   margin: 0 0 0.75rem 0;
 }
 
 .progress-bar {
   width: 100%;
   height: 0.5rem;
-  background: #e2e8f0;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 0.25rem;
   overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #1b85b8, #b91c1c);
+  background: linear-gradient(90deg, #00ffff, #ff00ff);
   transition: width 0.3s ease;
 }
 
@@ -199,6 +268,7 @@
   
   .dropdown-filters {
     flex-direction: column;
+    align-items: center;
   }
   
   .operator-info {
@@ -216,5 +286,13 @@
   
   .operators-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .view-header h2 {
+    font-size: 2rem;
+  }
+  
+  .operator-details h3 {
+    font-size: 1.5rem;
   }
 } 
