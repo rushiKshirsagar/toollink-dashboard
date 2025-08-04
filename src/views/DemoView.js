@@ -6,7 +6,7 @@ import {
   FaArrowRight, FaArrowDown, FaSync, FaEye,
   FaThermometerHalf, FaTachometerAlt, FaCog, FaIndustry,
   FaArrowLeft, FaNetworkWired, FaShieldAlt, FaBolt,
-  FaPlay, FaPause, FaUndo, FaSave, FaTablet
+  FaPlay, FaPause, FaUndo, FaSave, FaTablet, FaEnvelope
 } from 'react-icons/fa';
 import { 
   SiArduino, SiMqtt, SiInfluxdb, SiReact, SiJavascript,
@@ -235,6 +235,28 @@ const DemoView = () => {
         "Mobile optimization",
         "User management"
       ]
+    },
+    {
+      id: 8,
+      title: "Daily Brief Email System",
+      subtitle: "Automated Daily Reports & Insights",
+      icon: <FaEnvelope />,
+      description: "Automated daily brief emails with comprehensive shop floor insights and actionable intelligence",
+      details: [
+        "24-hour automated email generation",
+        "Comprehensive shop floor summary",
+        "Performance metrics and KPIs",
+        "Blockers and challenges identification",
+        "Actionable recommendations and insights"
+      ],
+      visual: "daily-brief",
+      subSteps: [
+        "Data aggregation and analysis",
+        "Report template generation",
+        "Email automation setup",
+        "Recipient management",
+        "Delivery scheduling"
+      ]
     }
   ];
 
@@ -297,19 +319,6 @@ const DemoView = () => {
       <div className="demo-header">
         <h2>Complete System Workflow Demo</h2>
         <p>End-to-end illustration of CNC machine monitoring from hardware to dashboard</p>
-      </div>
-
-      {/* Progress Bar */}
-      <div className="progress-container">
-        <div className="progress-bar">
-          <div 
-            className="progress-fill" 
-            style={{ width: `${((activeStep + 1) / workflowSteps.length) * 100}%` }}
-          ></div>
-        </div>
-        <span className="progress-text">
-          Step {activeStep + 1} of {workflowSteps.length} - {currentStep.title}
-        </span>
       </div>
 
       {/* Step Navigation */}
@@ -945,6 +954,168 @@ const DemoView = () => {
                   <FaEye />
                   <span>Live Monitoring</span>
                   <div className="pulse-indicator"></div>
+                </div>
+              </div>
+            )}
+
+            {/* Daily Brief Email System */}
+            {currentStep.visual === 'daily-brief' && (
+              <div className="daily-brief-system">
+                <div className="email-generation">
+                  <div className="email-header">
+                    <FaEnvelope />
+                    <span>Daily Brief Email System</span>
+                    <div className="email-status">
+                      <div className="status-indicator active"></div>
+                      <span>Automated</span>
+                    </div>
+                  </div>
+                  
+                  <div className="email-content">
+                    <div className="email-subject">
+                      <h6>📊 Daily Shop Floor Brief - {new Date().toLocaleDateString()}</h6>
+                    </div>
+                    
+                    <div className="email-body">
+                      <div className="section kpi-summary">
+                        <h6>🎯 Key Performance Indicators</h6>
+                        <div className="kpi-grid">
+                          <div className="kpi-item">
+                            <span className="kpi-label">Overall OEE</span>
+                            <span className="kpi-value">{liveData.oee.toFixed(1)}%</span>
+                            <span className="kpi-target">Target: 85%</span>
+                          </div>
+                          <div className="kpi-item">
+                            <span className="kpi-label">Efficiency</span>
+                            <span className="kpi-value">{liveData.efficiency.toFixed(1)}%</span>
+                            <span className="kpi-target">Target: 90%</span>
+                          </div>
+                          <div className="kpi-item">
+                            <span className="kpi-label">Availability</span>
+                            <span className="kpi-value">96.5%</span>
+                            <span className="kpi-target">Target: 95%</span>
+                          </div>
+                          <div className="kpi-item">
+                            <span className="kpi-label">Quality</span>
+                            <span className="kpi-value">96.4%</span>
+                            <span className="kpi-target">Target: 95%</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="section production-summary">
+                        <h6>🏭 Production Summary</h6>
+                        <div className="production-stats">
+                          <div className="stat-item">
+                            <span className="stat-label">Total Parts Produced</span>
+                            <span className="stat-value">{liveData.partsProduced}</span>
+                          </div>
+                          <div className="stat-item">
+                            <span className="stat-label">Rejections</span>
+                            <span className="stat-value">{liveData.rejections}</span>
+                          </div>
+                          <div className="stat-item">
+                            <span className="stat-label">Rejection Rate</span>
+                            <span className="stat-value">{(liveData.rejections / liveData.partsProduced * 100).toFixed(2)}%</span>
+                          </div>
+                          <div className="stat-item">
+                            <span className="stat-label">Active Machines</span>
+                            <span className="stat-value">10/12</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="section challenges">
+                        <h6>⚠️ Challenges & Blockers</h6>
+                        <div className="challenges-list">
+                          <div className="challenge-item">
+                            <span className="challenge-icon">🔧</span>
+                            <div className="challenge-content">
+                              <span className="challenge-title">Network Outage</span>
+                              <span className="challenge-desc">Temporary network connectivity issues during afternoon shift (2:30-3:15 PM)</span>
+                              <span className="challenge-status resolved">Status: Resolved</span>
+                            </div>
+                          </div>
+                          <div className="challenge-item">
+                            <span className="challenge-icon">🌡️</span>
+                            <div className="challenge-content">
+                              <span className="challenge-title">Temperature Fluctuation</span>
+                              <span className="challenge-desc">Machine M-003 temperature exceeded normal range by 2.3°C</span>
+                              <span className="challenge-status monitoring">Status: Monitoring</span>
+                            </div>
+                          </div>
+                          <div className="challenge-item">
+                            <span className="challenge-icon">⚡</span>
+                            <div className="challenge-content">
+                              <span className="challenge-title">Power Surge</span>
+                              <span className="challenge-desc">Minor power surge detected at 11:45 AM, no damage reported</span>
+                              <span className="challenge-status resolved">Status: Resolved</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="section recommendations">
+                        <h6>💡 Actionable Recommendations</h6>
+                        <div className="recommendations-list">
+                          <div className="recommendation-item">
+                            <span className="rec-priority high">High Priority</span>
+                            <span className="rec-text">Schedule preventive maintenance for Machine M-003 to address temperature fluctuations</span>
+                          </div>
+                          <div className="recommendation-item">
+                            <span className="rec-priority medium">Medium Priority</span>
+                            <span className="rec-text">Review network infrastructure to prevent future connectivity issues</span>
+                          </div>
+                          <div className="recommendation-item">
+                            <span className="rec-priority low">Low Priority</span>
+                            <span className="rec-text">Consider implementing power surge protection for critical equipment</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="section trends">
+                        <h6>📈 Performance Trends</h6>
+                        <div className="trends-summary">
+                          <div className="trend-item positive">
+                            <span className="trend-icon">📈</span>
+                            <span className="trend-text">OEE improved by 2.1% compared to yesterday</span>
+                          </div>
+                          <div className="trend-item positive">
+                            <span className="trend-icon">📈</span>
+                            <span className="trend-text">Efficiency increased by 1.8% this week</span>
+                          </div>
+                          <div className="trend-item neutral">
+                            <span className="trend-icon">➡️</span>
+                            <span className="trend-text">Quality metrics remained stable</span>
+                          </div>
+                          <div className="trend-item negative">
+                            <span className="trend-icon">📉</span>
+                            <span className="trend-text">Downtime increased by 0.5% due to network issues</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="email-footer">
+                      <div className="footer-info">
+                        <p>📧 This report was automatically generated by the CNC Monitoring System</p>
+                        <p>⏰ Generated on: {new Date().toLocaleString()}</p>
+                        <p>👥 Recipients: Management Team, Production Supervisors, Maintenance Staff</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="email-automation">
+                    <div className="automation-status">
+                      <FaSync className="spinning" />
+                      <span>Automated Generation</span>
+                    </div>
+                    <div className="schedule-info">
+                      <span>📅 Scheduled: Every 24 hours at 6:00 AM</span>
+                      <span>📊 Data Source: Real-time monitoring system</span>
+                      <span>📧 Delivery: Email to stakeholders</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}

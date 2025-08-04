@@ -5,6 +5,33 @@ import Dropdown from '../components/Dropdown';
 import DateFilter from '../components/DateFilter';
 import '../styles/CellsView.css';
 
+// Custom tooltip component for dark theme
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div style={{
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
+        borderRadius: '8px',
+        padding: '12px',
+        color: '#ffffff'
+      }}>
+        <p style={{ margin: '0 0 8px 0', color: '#b0b0b0' }}>{`${label}`}</p>
+        {payload.map((entry, index) => (
+          <p key={index} style={{ 
+            margin: '4px 0', 
+            color: entry.color,
+            fontSize: '14px'
+          }}>
+            {`${entry.name}: ${entry.value}`}
+          </p>
+        ))}
+      </div>
+    );
+  }
+  return null;
+};
+
 const CellsView = ({ cellsData, setSelectedCell }) => {
   const [filterType, setFilterType] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -102,10 +129,19 @@ const CellsView = ({ cellsData, setSelectedCell }) => {
           <h3>Cell Efficiency Comparison</h3>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={filteredCells}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="id" />
-              <YAxis />
-              <Tooltip />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+              <XAxis 
+                dataKey="id" 
+                tick={{ fill: '#b0b0b0', fontSize: 12 }}
+                axisLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                tickLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+              />
+              <YAxis 
+                tick={{ fill: '#b0b0b0', fontSize: 12 }}
+                axisLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                tickLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+              />
+              <Tooltip content={<CustomTooltip />} />
               <Bar dataKey="efficiency" fill="url(#barGradient)" radius={[4, 4, 0, 0]} />
               <defs>
                 <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
@@ -121,10 +157,19 @@ const CellsView = ({ cellsData, setSelectedCell }) => {
           <h3>Production vs Rejection Rate</h3>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={filteredCells}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="id" />
-              <YAxis />
-              <Tooltip />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+              <XAxis 
+                dataKey="id" 
+                tick={{ fill: '#b0b0b0', fontSize: 12 }}
+                axisLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                tickLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+              />
+              <YAxis 
+                tick={{ fill: '#b0b0b0', fontSize: 12 }}
+                axisLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                tickLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+              />
+              <Tooltip content={<CustomTooltip />} />
               <Bar dataKey="production" fill="url(#productionGradient)" radius={[4, 4, 0, 0]} />
               <Bar dataKey="rejections" fill="url(#rejectionGradient)" radius={[4, 4, 0, 0]} />
               <defs>

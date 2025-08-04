@@ -1,4 +1,4 @@
-/* QA Manager View Styles */
+/* QA Manager View Styles - Dark Theme */
 .view-content {
   padding: 2rem;
   max-width: 1400px;
@@ -11,14 +11,14 @@
 }
 
 .view-header h2 {
-  color: #2d3748;
+  color: #ffffff;
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
   font-weight: 600;
 }
 
 .view-header p {
-  color: #718096;
+  color: #b0b0b0;
   font-size: 1.1rem;
 }
 
@@ -45,22 +45,29 @@
 }
 
 .chart-container {
-  background: white;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.chart-container:hover {
+  border-color: rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
 }
 
 .chart-container h3 {
-  color: #2d3748;
+  color: #ffffff;
   font-size: 1.25rem;
   margin-bottom: 1rem;
   font-weight: 600;
 }
 
 .chart-container h4 {
-  color: #2d3748;
+  color: #ffffff;
   font-size: 1.1rem;
   margin-bottom: 1rem;
   font-weight: 600;
@@ -71,18 +78,19 @@
 }
 
 .tool-wear-section h3 {
-  color: #2d3748;
+  color: #ffffff;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   font-weight: 600;
 }
 
 .tool-wear-container {
-  background: white;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .error-prone-section {
@@ -90,7 +98,7 @@
 }
 
 .error-prone-section h3 {
-  color: #2d3748;
+  color: #ffffff;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   font-weight: 600;
@@ -103,16 +111,19 @@
 }
 
 .error-prone-card {
-  background: white;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
-  transition: transform 0.2s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
 }
 
 .error-prone-card:hover {
   transform: translateY(-2px);
+  border-color: rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
 }
 
 .error-prone-header {
@@ -123,7 +134,7 @@
 }
 
 .error-prone-header h4 {
-  color: #2d3748;
+  color: #ffffff;
   font-size: 1.1rem;
   font-weight: 600;
   margin: 0;
@@ -137,13 +148,15 @@
 }
 
 .error-badge.critical {
-  background: #fed7d7;
-  color: #c53030;
+  background: rgba(255, 107, 107, 0.2);
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 107, 107, 0.3);
 }
 
 .error-badge.warning {
-  background: #fef5e7;
-  color: #d69e2e;
+  background: rgba(246, 173, 85, 0.2);
+  color: #f6ad55;
+  border: 1px solid rgba(246, 173, 85, 0.3);
 }
 
 .error-prone-details {
@@ -159,12 +172,12 @@
 }
 
 .detail .label {
-  color: #718096;
+  color: #b0b0b0;
   font-size: 0.875rem;
 }
 
 .detail .value {
-  color: #2d3748;
+  color: #ffffff;
   font-weight: 600;
   font-size: 0.875rem;
 }
@@ -174,18 +187,19 @@
 }
 
 .quality-trends-section h3 {
-  color: #2d3748;
+  color: #ffffff;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   font-weight: 600;
 }
 
 .trends-container {
-  background: white;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .alerts-section {
@@ -193,7 +207,7 @@
 }
 
 .alerts-section h3 {
-  color: #2d3748;
+  color: #ffffff;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   font-weight: 600;

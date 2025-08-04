@@ -16,6 +16,33 @@ import DateFilter from '../components/DateFilter';
 import MachineCard from '../components/MachineCard';
 import '../styles/MachineView.css';
 
+// Custom tooltip component for dark theme
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div style={{
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
+        borderRadius: '8px',
+        padding: '12px',
+        color: '#ffffff'
+      }}>
+        <p style={{ margin: '0 0 8px 0', color: '#b0b0b0' }}>{`${label}`}</p>
+        {payload.map((entry, index) => (
+          <p key={index} style={{ 
+            margin: '4px 0', 
+            color: entry.color,
+            fontSize: '14px'
+          }}>
+            {`${entry.name}: ${entry.value}`}
+          </p>
+        ))}
+      </div>
+    );
+  }
+  return null;
+};
+
 const MachineView = ({ machinesData, machineOptions }) => {
   const [selectedMachineId, setSelectedMachineId] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -105,134 +132,72 @@ const MachineView = ({ machinesData, machineOptions }) => {
       </div>
 
       {selectedMachine ? (
-        // Show detailed view for selected machine
         <>
-          <section className="machine-overview">
-            <div className="machine-info">
-              <h3>{selectedMachine.name || 'Unknown Machine'}</h3>
-              <div className="machine-status">
-                <span className={`status-badge ${selectedMachine.status || 'unknown'}`}>
-                  {(selectedMachine.status || 'unknown').toUpperCase()}
-                </span>
-                <span className="machine-id">{selectedMachine.id || 'N/A'}</span>
-              </div>
-              <p className="machine-details">
-                Operator: {selectedMachine.operator || 'N/A'} | Cell: {selectedMachine.cell || 'N/A'}
-              </p>
-            </div>
-          </section>
-
-          <section className="stats-grid">
+          <section className="machine-stats">
             <StatCard 
-              title="Temperature" 
-              value={(selectedMachine.temperature || 0).toFixed(1)} 
-              unit="°C" 
-              icon={<FaThermometerHalf />}
-              color="#00ffff"
-            />
-            <StatCard 
-              title="Spindle Speed" 
-              value={selectedMachine.spindleSpeed || 0} 
-              unit=" RPM" 
-              icon={<FaTachometerAlt />}
-              color="#ff00ff"
-            />
-            <StatCard 
-              title="Feed Rate" 
-              value={selectedMachine.feedRate || 0} 
-              unit=" mm/min" 
-              icon={<FaCog />}
-              color="#00ff00"
-            />
-            <StatCard 
-              title="Job Progress" 
-              value={(selectedMachine.jobProgress || 0).toFixed(1)} 
+              title="OEE" 
+              value={selectedMachine.oee?.toFixed(1) || '0.0'} 
               unit="%" 
-              icon={<FaClock />}
-              color="#00ffff"
+              icon={<FaTachometerAlt />}
+              color="#805ad5"
+              gradient={true}
             />
             <StatCard 
               title="Efficiency" 
-              value={selectedMachine.efficiency || 0} 
+              value={selectedMachine.efficiency?.toFixed(1) || '0.0'} 
               unit="%" 
-              icon={<FaChartLine />}
-              color="#ff00ff"
-              showEfficiencyInfo={true}
-              efficiencyType="machine"
+              icon={<FaBolt />}
+              color="#38a169"
+              gradient={true}
+            />
+            <StatCard 
+              title="Temperature" 
+              value={selectedMachine.temperature?.toFixed(1) || '0.0'} 
+              unit="°C" 
+              icon={<FaThermometerHalf />}
+              color="#f6ad55"
+              gradient={true}
+            />
+            <StatCard 
+              title="Cycle Time" 
+              value={selectedMachine.cycleTime?.toFixed(1) || '0.0'} 
+              unit=" min" 
+              icon={<FaClock />}
+              color="#1b85b8"
+              gradient={true}
             />
             <StatCard 
               title="Parts Produced" 
               value={selectedMachine.partsProduced || 0} 
               unit=" parts" 
               icon={<FaIndustry />}
-              color="#00ff00"
+              color="#2d3748"
+              gradient={true}
             />
             <StatCard 
               title="Rejections" 
               value={selectedMachine.rejections || 0} 
               unit=" parts" 
               icon={<FaTimesCircle />}
-              color="#ff6b6b"
-            />
-            <StatCard 
-              title="Rejection Rate" 
-              value={selectedMachine.rejectionRate || 0} 
-              unit="%" 
-              icon={<FaExclamationTriangle />}
-              color="#ffa500"
-            />
-            <StatCard 
-              title="Uptime" 
-              value={selectedMachine.uptime || 0} 
-              unit="%" 
-              icon={<FaCog />}
-              color="#00ff00"
-            />
-            <StatCard 
-              title="OEE" 
-              value={selectedMachine.oee || 0} 
-              unit="%" 
-              icon={<FaShieldAlt />}
-              color="#00ffff"
-            />
-            <StatCard 
-              title="Cycle Time" 
-              value={selectedMachine.cycleTime || 0} 
-              unit=" min" 
-              icon={<FaClock />}
-              color="#ff00ff"
-            />
-            <StatCard 
-              title="MTTR" 
-              value={selectedMachine.mttr || 0} 
-              unit=" min" 
-              icon={<FaTools />}
-              color="#ff6b6b"
-            />
-            <StatCard 
-              title="MTBF" 
-              value={selectedMachine.mtbf || 0} 
-              unit=" hrs" 
-              icon={<FaBolt />}
-              color="#ffa500"
-            />
-            <StatCard 
-              title="Spindle Load" 
-              value={selectedMachine.spindleLoad || 0} 
-              unit="%" 
-              icon={<FaTachometerAlt />}
-              color="#00ff00"
+              color="#e53e3e"
+              gradient={true}
             />
           </section>
 
-          <section className="charts-section">
+          <section className="machine-charts">
             <div className="chart-container">
               <h3>OEE Breakdown</h3>
               <ResponsiveContainer width="100%" height={250}>
                 <RadarChart data={oeeData}>
-                  <PolarGrid stroke="rgba(255,255,255,0.2)" />
-                  <PolarAngleAxis dataKey="name" tick={{ fill: '#b0b0b0' }} />
-                  <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fill: '#b0b0b0' }} />
+                  <PolarGrid stroke="rgba(255, 255, 255, 0.2)" />
+                  <PolarAngleAxis 
+                    dataKey="name" 
+                    tick={{ fill: '#b0b0b0', fontSize: 12 }}
+                  />
+                  <PolarRadiusAxis 
+                    tick={{ fill: '#b0b0b0', fontSize: 12 }}
+                    axisLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                  />
                   <Radar
                     name="Current"
                     dataKey="value"
@@ -249,14 +214,7 @@ const MachineView = ({ machinesData, machineOptions }) => {
                     strokeWidth={2}
                     strokeDasharray="5 5"
                   />
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'rgba(0,0,0,0.8)',
-                      border: '1px solid rgba(0,255,255,0.3)',
-                      borderRadius: '8px',
-                      color: '#ffffff'
-                    }}
-                  />
+                  <Tooltip content={<CustomTooltip />} />
                 </RadarChart>
               </ResponsiveContainer>
             </div>
@@ -268,14 +226,7 @@ const MachineView = ({ machinesData, machineOptions }) => {
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                   <XAxis dataKey="hour" stroke="#b0b0b0" />
                   <YAxis stroke="#b0b0b0" />
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'rgba(0,0,0,0.8)',
-                      border: '1px solid rgba(0,255,255,0.3)',
-                      borderRadius: '8px',
-                      color: '#ffffff'
-                    }}
-                  />
+                  <Tooltip content={<CustomTooltip />} />
                   <Line 
                     type="monotone" 
                     dataKey="efficiency" 
@@ -311,14 +262,7 @@ const MachineView = ({ machinesData, machineOptions }) => {
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'rgba(0,0,0,0.8)',
-                      border: '1px solid rgba(0,255,255,0.3)',
-                      borderRadius: '8px',
-                      color: '#ffffff'
-                    }}
-                  />
+                  <Tooltip content={<CustomTooltip />} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
@@ -354,14 +298,7 @@ const MachineView = ({ machinesData, machineOptions }) => {
                       <Cell key={`cell-${index}`} fill={['#00ffff', '#ff00ff', '#00ff00', '#ffa500', '#ff6b6b'][index % 5]} />
                     ))}
                   </Pie>
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'rgba(0,0,0,0.8)',
-                      border: '1px solid rgba(0,255,255,0.3)',
-                      borderRadius: '8px',
-                      color: '#ffffff'
-                    }}
-                  />
+                  <Tooltip content={<CustomTooltip />} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
@@ -373,14 +310,7 @@ const MachineView = ({ machinesData, machineOptions }) => {
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                   <XAxis dataKey="id" stroke="#b0b0b0" />
                   <YAxis stroke="#b0b0b0" />
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'rgba(0,0,0,0.8)',
-                      border: '1px solid rgba(0,255,255,0.3)',
-                      borderRadius: '8px',
-                      color: '#ffffff'
-                    }}
-                  />
+                  <Tooltip content={<CustomTooltip />} />
                   <Bar dataKey="efficiency" fill="#00ffff" fillOpacity={0.7} name="Efficiency (%)" />
                   <Bar dataKey="oee" fill="#ff00ff" fillOpacity={0.7} name="OEE (%)" />
                 </BarChart>

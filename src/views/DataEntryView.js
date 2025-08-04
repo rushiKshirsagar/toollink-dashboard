@@ -162,8 +162,8 @@ const DataEntryView = ({ cellOptions, machineOptions, operatorOptions: propOpera
   return (
     <div className="view-content">
       <div className="view-header">
-        <h2 style={{ color: '#1b85b8', letterSpacing: '0.5px', fontWeight: 700 }}>Operator Data Entry</h2>
-        <p style={{ color: '#16648a', fontWeight: 500 }}>Enter measurement after each CNC cycle. Please fill all required fields.</p>
+        <h2 style={{  letterSpacing: '0.5px', fontWeight: 700 }}>Operator Data Entry</h2>
+        <p style={{  fontWeight: 500 }}>Enter measurement after each CNC cycle. Please fill all required fields.</p>
       </div>
       <form className="data-entry-form" onSubmit={handleSubmit}>
         <div className="form-row">

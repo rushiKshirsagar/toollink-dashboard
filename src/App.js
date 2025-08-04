@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaRocket } from 'react-icons/fa';
 import { SiSololearn } from "react-icons/si";
 
@@ -6,6 +6,8 @@ import { SiSololearn } from "react-icons/si";
 // Components
 import Navigation from './components/Navigation';
 import ParticleBackground from './components/ParticleBackground';
+import LiveNotification from './components/LiveNotification';
+import NotificationBell from './components/NotificationBell';
 
 // Views
 import ShopFloorView from './views/ShopFloorView';
@@ -20,6 +22,10 @@ import DemoView from './views/DemoView';
 
 // Hooks
 import { useParticles } from './hooks/useParticles';
+import useScrollHeader from './hooks/useScrollHeader';
+
+// Services
+import notificationService from './services/notificationService';
 
 // Data
 import {
@@ -45,8 +51,11 @@ function App() {
   const [selectedCell, setSelectedCell] = useState(null);
   const [selectedMachine, setSelectedMachine] = useState(null);
   const [selectedOperator, setSelectedOperator] = useState(null);
+  const [notifications, setNotifications] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(false);
   
   const particles = useParticles();
+  const isHeaderVisible = useScrollHeader();
 
   // Create dropdown options from data
   const cellOptions = [
@@ -63,6 +72,35 @@ function App() {
     { value: '', label: 'All Machines' },
     ...machinesData.map(machine => ({ value: machine.id, label: machine.name }))
   ];
+
+  // Initialize notification service
+  useEffect(() => {
+    // Subscribe to notification updates
+    const unsubscribe = notificationService.subscribe((newNotifications) => {
+      setNotifications(newNotifications);
+    });
+
+    // Start simulation
+    notificationService.startSimulation(machinesData, operatorsData);
+
+    return unsubscribe;
+  }, []);
+
+  // Get notifications for current page
+  const getCurrentPageNotifications = () => {
+    if (currentView === 'shop-floor') {
+      return notifications; // All notifications for main page
+    }
+    return notificationService.getNotificationsForPage(currentView);
+  };
+
+  const handleNotificationDismiss = (id) => {
+    notificationService.removeNotification(id);
+  };
+
+  const toggleNotifications = () => {
+    setShowNotifications(!showNotifications);
+  };
 
   const renderView = () => {
     switch (currentView) {
@@ -151,19 +189,37 @@ function App() {
     }
   };
 
+  const currentPageNotifications = getCurrentPageNotifications();
+  const hasNotifications = currentPageNotifications.length > 0;
+
   return (
     <div className="App">
       <ParticleBackground particles={particles} />
 
-      <header className="dashboard-header">
+      <header className={`dashboard-header ${!isHeaderVisible ? 'header-hidden' : ''}`}>
         <div className="header-content">
           <div className="logo-section">
             <SiSololearn className="logo-icon" />
-            <h1 style={{color: 'white', fontFamily: "cursive"}}>ToolLink</h1>
+            <h1 style={{color: 'white', fontFamily:"monospace"}}>ToolLink</h1>
           </div>
           <Navigation currentView={currentView} setCurrentView={setCurrentView} />
+          <div className="header-actions">
+            <NotificationBell 
+              notificationCount={currentPageNotifications.length}
+              hasNotifications={hasNotifications}
+              onClick={toggleNotifications}
+            />
+          </div>
         </div>
       </header>
+
+      {/* Live Notifications */}
+      {showNotifications && (
+        <LiveNotification 
+          notifications={currentPageNotifications}
+          onDismiss={handleNotificationDismiss}
+        />
+      )}
 
       <main className="dashboard-content">
         {renderView()}

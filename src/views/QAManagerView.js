@@ -15,6 +15,33 @@ import Dropdown from '../components/Dropdown';
 import DateFilter from '../components/DateFilter';
 import '../styles/QAManagerView.css';
 
+// Custom tooltip component for dark theme
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div style={{
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
+        borderRadius: '8px',
+        padding: '12px',
+        color: '#ffffff'
+      }}>
+        <p style={{ margin: '0 0 8px 0', color: '#b0b0b0' }}>{`${label}`}</p>
+        {payload.map((entry, index) => (
+          <p key={index} style={{ 
+            margin: '4px 0', 
+            color: entry.color,
+            fontSize: '14px'
+          }}>
+            {`${entry.name}: ${entry.value}`}
+          </p>
+        ))}
+      </div>
+    );
+  }
+  return null;
+};
+
 const QAManagerView = ({ machinesData, operatorsData, shopFloorData, COLORS }) => {
   const [selectedMachine, setSelectedMachine] = useState('');
   const [selectedOperator, setSelectedOperator] = useState('');
@@ -222,11 +249,20 @@ const QAManagerView = ({ machinesData, operatorsData, shopFloorData, COLORS }) =
           <h3>Rejections by Machine</h3>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={rejectionByMachine}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="rejections" fill="#e53e3e" />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+              <XAxis 
+                dataKey="name" 
+                tick={{ fill: '#b0b0b0', fontSize: 12 }}
+                axisLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                tickLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+              />
+              <YAxis 
+                tick={{ fill: '#b0b0b0', fontSize: 12 }}
+                axisLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                tickLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+              />
+              <Tooltip content={<CustomTooltip />} />
+              <Bar dataKey="rejections" fill="#e53e3e" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -235,11 +271,20 @@ const QAManagerView = ({ machinesData, operatorsData, shopFloorData, COLORS }) =
           <h3>First Pass Yield by Operator</h3>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={rejectionByOperator}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="fpy" fill="#38a169" />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+              <XAxis 
+                dataKey="name" 
+                tick={{ fill: '#b0b0b0', fontSize: 12 }}
+                axisLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                tickLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+              />
+              <YAxis 
+                tick={{ fill: '#b0b0b0', fontSize: 12 }}
+                axisLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                tickLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+              />
+              <Tooltip content={<CustomTooltip />} />
+              <Bar dataKey="fpy" fill="#38a169" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -252,10 +297,22 @@ const QAManagerView = ({ machinesData, operatorsData, shopFloorData, COLORS }) =
             <h4>Tool Change Frequency vs Process Drift</h4>
             <ResponsiveContainer width="100%" height={200}>
               <ScatterChart data={toolWearData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="toolChangeFrequency" name="Tool Changes/Shift" />
-                <YAxis dataKey="processDrift" name="Process Drift %" />
-                <Tooltip />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+                <XAxis 
+                  dataKey="toolChangeFrequency" 
+                  name="Tool Changes/Shift"
+                  tick={{ fill: '#b0b0b0', fontSize: 12 }}
+                  axisLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                  tickLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                />
+                <YAxis 
+                  dataKey="processDrift" 
+                  name="Process Drift %"
+                  tick={{ fill: '#b0b0b0', fontSize: 12 }}
+                  axisLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                  tickLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                />
+                <Tooltip content={<CustomTooltip />} />
                 <Scatter dataKey="processDrift" fill="#805ad5" />
               </ScatterChart>
             </ResponsiveContainer>
@@ -304,10 +361,19 @@ const QAManagerView = ({ machinesData, operatorsData, shopFloorData, COLORS }) =
             <h4>Rejection Rate Trends</h4>
             <ResponsiveContainer width="100%" height={200}>
               <LineChart data={rejectionByMachine}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+                <XAxis 
+                  dataKey="name" 
+                  tick={{ fill: '#b0b0b0', fontSize: 12 }}
+                  axisLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                  tickLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                />
+                <YAxis 
+                  tick={{ fill: '#b0b0b0', fontSize: 12 }}
+                  axisLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                  tickLine={{ stroke: 'rgba(255, 255, 255, 0.2)' }}
+                />
+                <Tooltip content={<CustomTooltip />} />
                 <Line type="monotone" dataKey="rejectionRate" stroke="#e53e3e" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>

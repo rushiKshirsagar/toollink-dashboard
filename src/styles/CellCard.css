@@ -1,4 +1,4 @@
-/* CellCard Styles - Minimalist Professional */
+/* CellCard Styles - Dark Theme */
 .cells-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -7,21 +7,22 @@
 }
 
 .cell-card {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   border-radius: 0.75rem;
   padding: 1.5rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .cell-card:hover {
   transform: translateY(-3px);
-  border-color: #1b85b8;
-  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.1);
+  border-color: rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
 }
 
 .cell-header {
@@ -34,7 +35,7 @@
 .cell-header h3 {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #1a202c;
+  color: #ffffff;
 }
 
 .cell-status {
@@ -47,13 +48,13 @@
 }
 
 .cell-status.active {
-  background: rgba(220, 38, 38, 0.1);
-  color: #1b85b8;
-  border: 1px solid rgba(220, 38, 38, 0.3);
+  background: rgba(0, 255, 255, 0.2);
+  color: #00ffff;
+  border: 1px solid rgba(0, 255, 255, 0.3);
 }
 
 .cell-status.partial {
-  background: rgba(246, 173, 85, 0.1);
+  background: rgba(246, 173, 85, 0.2);
   color: #f6ad55;
   border: 1px solid rgba(246, 173, 85, 0.3);
 }
@@ -72,7 +73,7 @@
 
 .stat-label {
   font-size: 0.75rem;
-  color: #4a5568;
+  color: #b0b0b0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -80,7 +81,7 @@
 .cell-stat .stat-value {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1a202c;
+  color: #ffffff;
 }
 
 /* Responsive */
