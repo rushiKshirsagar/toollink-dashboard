@@ -1,20 +1,42 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const useScrollHeader = () => {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isScrollingUp, setIsScrollingUp] = useState(false);
+  const scrollTimeoutRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       
-      // Show header when scrolling up or at the top
-      if (currentScrollY < lastScrollY || currentScrollY < 100) {
-        setIsHeaderVisible(true);
+      // Clear any existing timeout
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      
+      // Check if scrolling up
+      if (currentScrollY < lastScrollY) {
+        setIsScrollingUp(true);
+        // Add delay before showing header when scrolling up
+        scrollTimeoutRef.current = setTimeout(() => {
+          if (isScrollingUp) {
+            setIsHeaderVisible(true);
+          }
+        }, 300); // 300ms delay - you can adjust this value
       } 
-      // Hide header when scrolling down and not at the top
-      else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsHeaderVisible(false);
+      // Check if scrolling down
+      else if (currentScrollY > lastScrollY) {
+        setIsScrollingUp(false);
+        // Hide header immediately when scrolling down
+        if (currentScrollY > 100) {
+          setIsHeaderVisible(false);
+        }
+      }
+      
+      // Always show header at the top
+      if (currentScrollY < 100) {
+        setIsHeaderVisible(true);
       }
       
       setLastScrollY(currentScrollY);
@@ -26,8 +48,11 @@ const useScrollHeader = () => {
     // Cleanup
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
     };
-  }, [lastScrollY]);
+  }, [lastScrollY, isScrollingUp]);
 
   return isHeaderVisible;
 };
