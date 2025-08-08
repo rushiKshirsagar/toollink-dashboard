@@ -80,7 +80,7 @@
 }
 
 .header-actions .notification-bell.has-notifications {
-  background: rgba(220, 38, 38, 0.9);
+  /* background: rgba(220, 38, 38, 0.9); */
 }
 
 .header-actions .notification-bell-icon {

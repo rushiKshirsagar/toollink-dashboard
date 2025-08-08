@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/toollink-dashboard/static/css/main.9884959a.css",
-    "main.js": "/toollink-dashboard/static/js/main.b7a2f455.js",
+    "main.css": "/toollink-dashboard/static/css/main.5c097dc4.css",
+    "main.js": "/toollink-dashboard/static/js/main.752c2106.js",
     "service-worker.js": "/toollink-dashboard/service-worker.js",
     "index.html": "/toollink-dashboard/index.html",
-    "main.9884959a.css.map": "/toollink-dashboard/static/css/main.9884959a.css.map",
-    "main.b7a2f455.js.map": "/toollink-dashboard/static/js/main.b7a2f455.js.map"
+    "main.5c097dc4.css.map": "/toollink-dashboard/static/css/main.5c097dc4.css.map",
+    "main.752c2106.js.map": "/toollink-dashboard/static/js/main.752c2106.js.map"
   },
   "entrypoints": [
-    "static/css/main.9884959a.css",
-    "static/js/main.b7a2f455.js"
+    "static/css/main.5c097dc4.css",
+    "static/js/main.752c2106.js"
   ]
 }

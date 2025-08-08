@@ -64,7 +64,6 @@
 }
 
 .cells-grid h3 {
-  color: #2d3748;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   font-weight: 600;
@@ -81,7 +80,6 @@
 }
 
 .bottleneck-section h3 {
-  color: #2d3748;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   font-weight: 600;
@@ -190,7 +188,7 @@
 
 .machines-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   gap: 1.5rem;
 }
 

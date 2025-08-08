@@ -300,7 +300,7 @@ const ShopFloorView = ({ shopFloorData, productionTrends, qualityMetrics, COLORS
               <Line 
                 type="monotone" 
                 dataKey="target" 
-                stroke="white" 
+                stroke="orange" 
                 strokeWidth={3}
                 strokeDasharray="5 5"
               />
