@@ -6,7 +6,7 @@ import {
   FaArrowRight, FaArrowDown, FaSync, FaEye,
   FaThermometerHalf, FaTachometerAlt, FaCog, FaIndustry,
   FaArrowLeft, FaNetworkWired, FaShieldAlt, FaBolt,
-  FaPlay, FaPause, FaUndo, FaSave, FaTablet, FaEnvelope
+  FaPlay, FaPause, FaUndo, FaSave, FaTablet, FaEnvelope,FaWrench
 } from 'react-icons/fa';
 import { 
   SiArduino, SiMqtt, SiInfluxdb, SiReact, SiJavascript,
@@ -256,6 +256,28 @@ const DemoView = () => {
         "Email automation setup",
         "Recipient management",
         "Delivery scheduling"
+      ]
+    },
+    {
+      id: 9,
+      title: "AI-Powered Predictive Analytics",
+      subtitle: "Machine Learning & Predictive Insights",
+      icon: <FaBolt />,
+      description: "Advanced AI models for predictive maintenance, quality forecasting, and operational optimization",
+      details: [
+        "Predictive maintenance scheduling",
+        "Quality defect prediction",
+        "Production output forecasting",
+        "Tool wear prediction",
+        "Energy consumption optimization"
+      ],
+      visual: "ai-predictions",
+      subSteps: [
+        "Data preprocessing and feature engineering",
+        "Model training and validation",
+        "Real-time prediction deployment",
+        "Alert system integration",
+        "Continuous model improvement"
       ]
     }
   ];
@@ -1114,6 +1136,287 @@ const DemoView = () => {
                       <span>📅 Scheduled: Every 24 hours at 6:00 AM</span>
                       <span>📊 Data Source: Real-time monitoring system</span>
                       <span>📧 Delivery: Email to stakeholders</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* AI-Powered Predictive Analytics */}
+            {currentStep.visual === 'ai-predictions' && (
+              <div className="ai-predictions">
+                <div className="ai-models-section">
+                  <div className="model-header">
+                    <FaBolt />
+                    <span>AI Prediction Models</span>
+                    <div className="model-status">
+                      <div className="status-indicator active"></div>
+                      <span>Active</span>
+                    </div>
+                  </div>
+                  
+                  <div className="prediction-models">
+                    <div className="model-card maintenance">
+                      <div className="model-icon">
+                        <FaCog />
+                      </div>
+                      <div className="model-info">
+                        <h6>🔧 Predictive Maintenance</h6>
+                        <div className="prediction-details">
+                          <div className="prediction-item">
+                            <span className="prediction-label">Machine M-001:</span>
+                            <span className="prediction-value">Maintenance due in 3.2 days</span>
+                            <span className="prediction-confidence high">Confidence: 94%</span>
+                          </div>
+                          <div className="prediction-item">
+                            <span className="prediction-label">Machine M-004:</span>
+                            <span className="prediction-value">Spindle bearing wear detected</span>
+                            <span className="prediction-confidence medium">Confidence: 87%</span>
+                          </div>
+                          <div className="prediction-item">
+                            <span className="prediction-label">Machine M-007:</span>
+                            <span className="prediction-value">Optimal performance - no maintenance needed</span>
+                            <span className="prediction-confidence high">Confidence: 96%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="model-card quality">
+                      <div className="model-icon">
+                        <FaCheckCircle />
+                      </div>
+                      <div className="model-info">
+                        <h6>🎯 Quality Defect Prediction</h6>
+                        <div className="prediction-details">
+                          <div className="prediction-item">
+                            <span className="prediction-label">Cell B:</span>
+                            <span className="prediction-value">Expected rejection rate: 8.2% (vs 6.4% current)</span>
+                            <span className="prediction-confidence medium">Confidence: 82%</span>
+                          </div>
+                          <div className="prediction-item">
+                            <span className="prediction-label">Machine M-006:</span>
+                            <span className="prediction-value">Dimensional accuracy drift detected</span>
+                            <span className="prediction-confidence high">Confidence: 91%</span>
+                          </div>
+                          <div className="prediction-item">
+                            <span className="prediction-label">Tool T-003:</span>
+                            <span className="prediction-value">Surface finish degradation predicted</span>
+                            <span className="prediction-confidence medium">Confidence: 78%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="model-card production">
+                      <div className="model-icon">
+                        <FaIndustry />
+                      </div>
+                      <div className="model-info">
+                        <h6>📈 Production Output Forecasting</h6>
+                        <div className="prediction-details">
+                          <div className="prediction-item">
+                            <span className="prediction-label">Next 24 hours:</span>
+                            <span className="prediction-value">Expected output: 248 parts (±5)</span>
+                            <span className="prediction-confidence high">Confidence: 89%</span>
+                          </div>
+                          <div className="prediction-item">
+                            <span className="prediction-label">This week:</span>
+                            <span className="prediction-value">Expected output: 1,240 parts (±15)</span>
+                            <span className="prediction-confidence medium">Confidence: 85%</span>
+                          </div>
+                          <div className="prediction-item">
+                            <span className="prediction-label">Bottleneck prediction:</span>
+                            <span className="prediction-value">Cell B will be bottleneck by Thursday</span>
+                            <span className="prediction-confidence high">Confidence: 92%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="model-card tool-wear">
+                      <div className="model-icon">
+                        <FaWrench />
+                      </div>
+                      <div className="model-info">
+                        <h6>⚙️ Tool Wear Prediction</h6>
+                        <div className="prediction-details">
+                          <div className="prediction-item">
+                            <span className="prediction-label">Tool T-001:</span>
+                            <span className="prediction-value">Replace in 2.5 hours (current wear: 78%)</span>
+                            <span className="prediction-confidence high">Confidence: 95%</span>
+                          </div>
+                          <div className="prediction-item">
+                            <span className="prediction-label">Tool T-004:</span>
+                            <span className="prediction-value">Optimal performance - 45% wear remaining</span>
+                            <span className="prediction-confidence high">Confidence: 88%</span>
+                          </div>
+                          <div className="prediction-item">
+                            <span className="prediction-label">Tool T-007:</span>
+                            <span className="prediction-value">Accelerated wear detected - replace in 1.2 hours</span>
+                            <span className="prediction-confidence medium">Confidence: 83%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="model-card energy">
+                      <div className="model-icon">
+                        <FaBolt />
+                      </div>
+                      <div className="model-info">
+                        <h6>⚡ Energy Consumption Optimization</h6>
+                        <div className="prediction-details">
+                          <div className="prediction-item">
+                            <span className="prediction-label">Peak usage prediction:</span>
+                            <span className="prediction-value">2:30 PM - 4:15 PM (load balancing recommended)</span>
+                            <span className="prediction-confidence high">Confidence: 87%</span>
+                          </div>
+                          <div className="prediction-item">
+                            <span className="prediction-label">Energy savings opportunity:</span>
+                            <span className="prediction-value">15% reduction possible with schedule optimization</span>
+                            <span className="prediction-confidence medium">Confidence: 76%</span>
+                          </div>
+                          <div className="prediction-item">
+                            <span className="prediction-label">Maintenance impact:</span>
+                            <span className="prediction-value">M-003 maintenance will reduce energy by 8%</span>
+                            <span className="prediction-confidence high">Confidence: 91%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="model-card anomaly">
+                      <div className="model-icon">
+                        <FaExclamationTriangle />
+                      </div>
+                      <div className="model-info">
+                        <h6>🚨 Anomaly Detection</h6>
+                        <div className="prediction-details">
+                          <div className="prediction-item">
+                            <span className="prediction-label">Temperature anomaly:</span>
+                            <span className="prediction-value">M-002 temperature pattern deviation detected</span>
+                            <span className="prediction-confidence high">Confidence: 93%</span>
+                          </div>
+                          <div className="prediction-item">
+                            <span className="prediction-label">Vibration pattern:</span>
+                            <span className="prediction-value">Unusual spindle vibration in M-005</span>
+                            <span className="prediction-confidence medium">Confidence: 81%</span>
+                          </div>
+                          <div className="prediction-item">
+                            <span className="prediction-label">Cycle time deviation:</span>
+                            <span className="prediction-value">M-008 cycle time increased by 12%</span>
+                            <span className="prediction-confidence high">Confidence: 89%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="ai-insights-section">
+                  <div className="insights-header">
+                    <FaChartLine />
+                    <span>AI-Generated Insights</span>
+                  </div>
+                  
+                  <div className="insights-grid">
+                    <div className="insight-card">
+                      <h6>🎯 Optimization Recommendations</h6>
+                      <div className="insight-content">
+                        <div className="insight-item">
+                          <span className="insight-icon">⚡</span>
+                          <span className="insight-text">Schedule M-001 maintenance during low-demand period (2:00-4:00 AM)</span>
+                        </div>
+                        <div className="insight-item">
+                          <span className="insight-icon">🔄</span>
+                          <span className="insight-text">Optimize tool change schedule to reduce downtime by 23%</span>
+                        </div>
+                        <div className="insight-item">
+                          <span className="insight-icon">📊</span>
+                          <span className="insight-text">Adjust spindle speeds on M-004 to improve quality by 15%</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="insight-card">
+                      <h6>📈 Performance Trends</h6>
+                      <div className="insight-content">
+                        <div className="insight-item">
+                          <span className="insight-icon">📈</span>
+                          <span className="insight-text">OEE trending upward - expected to reach 92% by month-end</span>
+                        </div>
+                        <div className="insight-item">
+                          <span className="insight-icon">📉</span>
+                          <span className="insight-text">Cell B efficiency declining - intervention recommended</span>
+                        </div>
+                        <div className="insight-item">
+                          <span className="insight-icon">➡️</span>
+                          <span className="insight-text">Quality metrics stable with 0.8% improvement trend</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="insight-card">
+                      <h6>🔮 Future Predictions</h6>
+                      <div className="insight-content">
+                        <div className="insight-item">
+                          <span className="insight-icon">📅</span>
+                          <span className="insight-text">Next maintenance cycle: 18 days (vs 21-day average)</span>
+                        </div>
+                        <div className="insight-item">
+                          <span className="insight-icon">🎯</span>
+                          <span className="insight-text">Quality target achievement: 98.2% (vs 95% target)</span>
+                        </div>
+                        <div className="insight-item">
+                          <span className="insight-icon">💰</span>
+                          <span className="insight-text">Cost savings potential: $12,400/month with optimizations</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="ai-model-performance">
+                  <div className="performance-header">
+                    <FaCogs />
+                    <span>Model Performance Metrics</span>
+                  </div>
+                  
+                  <div className="performance-metrics">
+                    <div className="metric-row">
+                      <div className="metric-item">
+                        <span className="metric-label">Maintenance Prediction Accuracy:</span>
+                        <span className="metric-value">94.2%</span>
+                        <span className="metric-trend positive">+2.1%</span>
+                      </div>
+                      <div className="metric-item">
+                        <span className="metric-label">Quality Prediction Accuracy:</span>
+                        <span className="metric-value">87.8%</span>
+                        <span className="metric-trend positive">+1.5%</span>
+                      </div>
+                      <div className="metric-item">
+                        <span className="metric-label">Production Forecast Accuracy:</span>
+                        <span className="metric-value">91.3%</span>
+                        <span className="metric-trend positive">+3.2%</span>
+                      </div>
+                    </div>
+                    <div className="metric-row">
+                      <div className="metric-item">
+                        <span className="metric-label">Tool Wear Prediction Accuracy:</span>
+                        <span className="metric-value">96.7%</span>
+                        <span className="metric-trend positive">+1.8%</span>
+                      </div>
+                      <div className="metric-item">
+                        <span className="metric-label">Anomaly Detection Rate:</span>
+                        <span className="metric-value">89.4%</span>
+                        <span className="metric-trend positive">+2.7%</span>
+                      </div>
+                      <div className="metric-item">
+                        <span className="metric-label">False Positive Rate:</span>
+                        <span className="metric-value">3.2%</span>
+                        <span className="metric-trend negative">-0.8%</span>
+                      </div>
                     </div>
                   </div>
                 </div>
